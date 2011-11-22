@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getProcesses" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				xid , name
+		from
+				xrm_businessprocess
+		order by
+				created_on
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+	<select id="getProcessesByID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select 
+				bp.xid as "XID", bp.name as "Process Name", 
+				usr.full_name as "Owner", bp.stage as "Stage",
+				deploy.name as "Build Version",usr1.full_name as "Business Owner",
+				usr2.full_name as "Process Administrator", 
+				to_char(to_timestamp(bp.created_on, 'YYYY MM DD'), 'DD MON YYYY') as "Creation Date" , 
+				acct.name as "Account"
+				
+		from 
+				xrm_businessprocess as bp 
+					LEFT OUTER JOIN xrm_user as usr 
+							ON (usr.xid = bp.owner)
+					LEFT OUTER JOIN xrm_user as usr1 
+							ON (usr1.xid = bp.business_owner)
+					LEFT OUTER JOIN xrm_user as usr2 
+							ON (usr2.xid = bp.process_administrator)
+					LEFT OUTER JOIN xrm_deploymentunit as deploy 
+							ON (deploy.process_id = bp.xid) 
+					LEFT OUTER JOIN xrm_account as acct 
+							ON (acct.xid = bp.organization)
+		where
+					bp.xid = #id#
+		order by 
+					deploy.version desc 
+		LIMIT 
+					1
+		
+	</select>
+</sqlMap>
+

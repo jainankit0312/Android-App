@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getInvoices" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				xid , name
+		from
+				xrm_invoice
+		order by
+				duedate
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+	<select id="getInvoicesOnID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				inv.xid as "XID", inv.name "Name", inv.shipto_name as "Ship to Name",
+				inv.invoicenumber as "Invoice Number",
+				to_char(to_timestamp(inv.duedate, 'YYYY MM DD'), 'DD MON YYYY') as "Due Date",
+				inv.billto_city as "Bill to City" , inv.billto_state as "Bill to State",
+				acct.name as "Account",quote.name as "Quote Name",
+				curr.currencyname as "Currency Name", inv.grand_total as "Amount"
+		from
+				xrm_invoice as inv
+					LEFT OUTER JOIN xrm_currency as curr
+						ON (curr.xid = inv.currency)
+					LEFT OUTER JOIN xrm_quote as quote
+						ON (quote.xid= inv.quoteid)
+					LEFT OUTER JOIN xrm_account as acct
+						ON (acct.xid = inv.customerid)
+		where
+				inv.xid = #id#
+	</select>
+	<select id="getInvoicesOnAccountID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				inv.xid , inv.name "name"
+		
+		from
+				xrm_invoice as inv
+					
+		where
+				inv.customerid = #id#
+		order by
+				xid
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+</sqlMap>

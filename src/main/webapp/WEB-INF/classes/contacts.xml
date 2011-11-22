@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getContacts" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				xid, fullname as name
+		from
+				xrm_contact
+		order by
+				fullname
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+	<select id="getContactsByID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				con.xid as "XID", con.fullname as "Name",
+				con.department as "Department", con.mobilephone as "Mobile No" ,
+				con.emailaddress1 as "Email" ,con.addr_city as "City" , 
+				con.addr_state as "State" ,con.assistantname as "Assistant's Name", 
+				con.assistantphone "Assistant's Phone", 
+				lead.fullname as "Lead" ,
+				acct.name as "Account" , curr.currencyname as "Currency"
+		from
+				xrm_contact as con
+					LEFT OUTER JOIN xrm_currency as curr
+						ON (curr.xid = con.currency)
+					LEFT OUTER JOIN xrm_lead as lead
+						ON (lead.xid= con.origlead)
+					LEFT OUTER JOIN xrm_account as acct
+						ON (acct.xid = con.parentcust)
+		where
+				con.xid = #id#
+	</select>
+	<select id="getContactsByAccountID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				con.xid , con.fullname as "name" ,con.mobilephone as "Mobile No" ,
+				con.emailaddress1 as "Email ID" 
+		from
+				xrm_contact as con
+		where
+				con.parentcust = #id#
+		order by
+				xid
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+</sqlMap>

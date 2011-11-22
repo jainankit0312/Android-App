@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getContracts" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				xid,title as name
+		from
+				xrm_contract
+		order by
+				cend
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+	<select id="getContractsOnID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				con.xid as "XID", con.title as "Name", 
+				con.contractnumber "Contract Number",
+				to_char(to_timestamp(con.cstart, 'YYYY MM DD'), 'DD MON YYYY') as "Start Date",
+				to_char(to_timestamp(con.cend, 'YYYY MM DD'), 'DD MON YYYY') as "End Date",
+				con.duration as "Duration (in months)", acct.name as "Account", 
+				curr.currencyname as "Currency",con.addr_city as "City"
+		from
+				xrm_contract as con
+					LEFT OUTER JOIN xrm_currency as curr
+						ON (curr.xid = con.currency)
+					LEFT OUTER JOIN xrm_account as acct
+						ON (acct.xid = con.customerid)
+		where
+				con.xid = #id#
+	</select>
+	<select id="getContractsOnAccountID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				con.xid , con.title as "name"
+		from
+				xrm_contract as con
+		where
+				con.customerid = #id#
+		order by
+				xid
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+
+</sqlMap>

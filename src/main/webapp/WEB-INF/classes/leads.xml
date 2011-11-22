@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getLeads" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				xid,companyname as name
+		from
+				xrm_lead
+		order by
+				companyname
+		OFFSET
+				#startFrom#
+		LIMIT
+				#upto#
+	</select>
+	<select id="getLeadsByID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				lead.xid as "XID", lead.companyname as "Company Name",
+				lead.emailaddress1 as "Email ID" , lead.fullname as "Contact Person",
+				lead.mobilephone as "Mobile No", lead.revenue as "Revenue", curr.currencyname as "Currency"
+		from
+				xrm_lead as lead
+					LEFT OUTER JOIN xrm_currency as curr
+					ON (curr.xid = lead.currency)
+		where
+				lead.xid = #id#
+	</select>
+</sqlMap>
+

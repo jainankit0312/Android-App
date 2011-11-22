@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getQuotes" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select 
+				xid,name 
+		from 
+				xrm_quote 
+		order by 
+				expireson 
+		OFFSET 
+				#startFrom#
+		LIMIT 
+				#upto#
+	</select>
+	<select id="getQuotesByID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		
+		select 
+				quote.xid as "XID", quote.name as "Name" , quote.quotenumber as "Quote Number" ,
+				quote.grandtotal as "Amount" ,
+				curr.currencyname as "Currency" ,acct.name as "Account" , 
+				to_char(to_timestamp(quote.expireson, 'YYYY MM DD'), 'DD MON YYYY') as "Expires On" ,
+				quote.billto_city as "City_Billto" , quote.billto_country as "Country_Billto"  
+				 
+		from 
+				xrm_quote as quote 
+						LEFT OUTER JOIN xrm_account as acct 
+							on (acct.xid = quote.accountid)
+						LEFT OUTER JOIN xrm_currency as curr 
+							on (curr.xid = quote.currency)
+		where 
+				quote.xid = #id#
+	</select>
+	<select id="getQuotesByAccountID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select 
+				quote.xid , quote.name as "name"
+		from 
+				xrm_quote as quote 
+		where 
+				quote.accountid = #id# 
+		order by
+				xid 
+		OFFSET 
+				#startFrom# 
+		LIMIT 
+				#upto#
+	</select>
+</sqlMap>

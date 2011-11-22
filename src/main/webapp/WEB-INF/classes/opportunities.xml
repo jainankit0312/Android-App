@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getOpportunities" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select 
+				xid ,name 
+		from 
+				xrm_opportunity 
+		order by 
+				estclose 
+		OFFSET
+				#startFrom# 
+		LIMIT 
+				#upto#
+	</select>
+	<select id="getOpportunityByID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		
+		select 
+				opp.xid as "XID", opp.name as "Name", 
+				opp.expected_revenue as "Expected Revenue",
+				to_char(to_timestamp(opp.estclose, 'YYYY MM DD'), 'DD MON YYYY') as "Estimated Close Date",
+				 opp.description as "Description",
+				opp.estvalue as "Estimated Value" , acct.name as "Account Name" ,
+				lead.fullname as "Lead Name" , curr.currencyname as "Currency" , 
+				  opp.avalue as "Actual Value" ,
+				to_char(to_timestamp(opp.aclosedate, 'YYYY MM DD'), 'DD MON YYYY') as "Actual Close Date" 
+				
+		from 	xrm_opportunity as opp 
+					LEFT OUTER JOIN xrm_currency as curr 
+							ON (curr.xid = opp.currency)
+					LEFT OUTER JOIN xrm_lead as lead 
+							ON (lead.xid= opp.origlead)
+					LEFT OUTER JOIN xrm_account as acct 
+							ON (acct.xid = opp.customerid)
+		where 
+				opp.xid = #id#
+	</select>
+	<select id="getOpportunitiesByAccountID" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select 
+				opp.xid , opp.name as "name"
+		from 	
+				xrm_opportunity as opp 
+		where 
+				opp.customerid = #id#
+		order by 
+				xid 
+		OFFSET 
+				#startFrom# 
+		LIMIT 
+				#upto#
+	</select>
+</sqlMap>
