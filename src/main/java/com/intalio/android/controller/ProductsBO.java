@@ -46,15 +46,39 @@ public class ProductsBO
 	/**
 	 * Returns detail of product on id
 	*/
-	public List getProductsByID(long productsID) 
+	public List getProductsByIDMain(String productsID) 
 	{
 		try 
 		{
-			return getProductsDAO().getProductsByID(productsID);
+			return getProductsDAO().getProductsByIDMain(productsID);
 		} 
 		catch (Exception e) 
 		{
-			logger.error("Error while getting products by id", e);
+			logger.error("Error while getting Main products by id", e);
+		}
+		return null;
+	}
+	public List getProductsByIDStandard(String productsID) 
+	{
+		try 
+		{
+			return getProductsDAO().getProductsByIDStandard(productsID);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Standard products by id", e);
+		}
+		return null;
+	}
+	public List getProductsByIDSpecific(String productsID) 
+	{
+		try 
+		{
+			return getProductsDAO().getProductsByIDSpecific(productsID);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Specific products by id", e);
 		}
 		return null;
 	}

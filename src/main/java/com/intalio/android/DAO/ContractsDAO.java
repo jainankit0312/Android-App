@@ -22,10 +22,22 @@ public class ContractsDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getContractsOnID(long id) {
+	public List getContractsOnIDMain(String id) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", id);
-		return super.getSqlMapClientTemplate().queryForList("getContractsOnID",
+		return super.getSqlMapClientTemplate().queryForList("getContractsOnIDMain",
+				QueryData);
+	}
+	public List getContractsOnIDStandard(String id) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", id);
+		return super.getSqlMapClientTemplate().queryForList("getContractsOnIDStandard",
+				QueryData);
+	}
+	public List getContractsOnIDSpecific(String id) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", id);
+		return super.getSqlMapClientTemplate().queryForList("getContractsOnIDSpecific",
 				QueryData);
 	}
 

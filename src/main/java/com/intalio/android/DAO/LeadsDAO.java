@@ -23,10 +23,22 @@ public class LeadsDAO extends SqlMapClientDaoSupport
 		return super.getSqlMapClientTemplate().queryForList("getLeads",QueryData);
 	}
 	
-	public List getLeadsByID(long leadid) 
+	public List getLeadsByIDMain(String leadid) 
 	{
 		Map QueryData = new HashMap();
 		QueryData.put("id", leadid);
-		return super.getSqlMapClientTemplate().queryForList("getLeadsByID",QueryData);
+		return super.getSqlMapClientTemplate().queryForList("getLeadsByIDMain",QueryData);
+	}
+	public List getLeadsByIDStandard(String leadid) 
+	{
+		Map QueryData = new HashMap();
+		QueryData.put("id", leadid);
+		return super.getSqlMapClientTemplate().queryForList("getLeadsByIDStandard",QueryData);
+	}
+	public List getLeadsByIDSpecific(String leadid) 
+	{
+		Map QueryData = new HashMap();
+		QueryData.put("id", leadid);
+		return super.getSqlMapClientTemplate().queryForList("getLeadsByIDSpecific",QueryData);
 	}
 }

@@ -43,7 +43,7 @@ public class BusinessProcessesBO
 	/**
 	 * Returns Processes details on ID
 	*/
-	public List getBusinessProcessesByID(long processID) 
+	public List getBusinessProcessesByID(String processID) 
 	{
 		try 
 		{

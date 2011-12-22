@@ -22,10 +22,22 @@ public class ProductsDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getProductsByID(long productID) {
+	public List getProductsByIDMain(String productID) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", productID);
-		return super.getSqlMapClientTemplate().queryForList("getProductsByID",
+		return super.getSqlMapClientTemplate().queryForList("getProductsByIDMain",
+				QueryData);
+	}
+	public List getProductsByIDStandard(String productID) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", productID);
+		return super.getSqlMapClientTemplate().queryForList("getProductsByIDStandard",
+				QueryData);
+	}
+	public List getProductsByIDSpecific(String productID) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", productID);
+		return super.getSqlMapClientTemplate().queryForList("getProductsByIDSpecific",
 				QueryData);
 	}
 }

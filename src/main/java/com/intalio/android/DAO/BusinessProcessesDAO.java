@@ -21,7 +21,7 @@ public class BusinessProcessesDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getBusinessProcessesByID(long processID) {
+	public List getBusinessProcessesByID(String processID) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", processID);
 		return super.getSqlMapClientTemplate().queryForList("getProcessesByID",

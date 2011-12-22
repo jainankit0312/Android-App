@@ -43,7 +43,7 @@ public class PriceListsBO
 	/**
 	 * Returns detail of pricelists on id
 	*/
-	public List getPriceListsByID(long pricelistsid) 
+	public List getPriceListsByID(String pricelistsid) 
 	{
 		try 
 		{

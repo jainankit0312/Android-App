@@ -22,10 +22,22 @@ public class ContactsDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getContactsOnID(long id) {
+	public List getContactsOnIDMain(String id) {
 		Map QueryData = new LinkedHashMap();
 		QueryData.put("id", id);
-		return super.getSqlMapClientTemplate().queryForList("getContactsByID",
+		return super.getSqlMapClientTemplate().queryForList("getContactsByIDMain",
+				QueryData);
+	}
+	public List getContactsOnIDStandard(String id) {
+		Map QueryData = new LinkedHashMap();
+		QueryData.put("id", id);
+		return super.getSqlMapClientTemplate().queryForList("getContactsByIDStandard",
+				QueryData);
+	}
+	public List getContactsOnIDSpecific(String id) {
+		Map QueryData = new LinkedHashMap();
+		QueryData.put("id", id);
+		return super.getSqlMapClientTemplate().queryForList("getContactsByIDSpecific",
 				QueryData);
 	}
 

@@ -47,15 +47,39 @@ public class ContactsBO
 	/**
 	 * Returns Contact Details on its id
 	*/
-	public List getContactsByID(long contactid) 
+	public List getContactsByIDMain(String contactid) 
 	{
 		try 
 		{
-			return getContactsDAO().getContactsOnID(contactid);
+			return getContactsDAO().getContactsOnIDMain(contactid);
 		} 
 		catch (Exception e) 
 		{
-			logger.error("Error while getting contact on id", e);
+			logger.error("Error while getting Main contact on id", e);
+		}
+		return null;
+	}
+	public List getContactsByIDStandard(String contactid) 
+	{
+		try 
+		{
+			return getContactsDAO().getContactsOnIDStandard(contactid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Standard contact on id", e);
+		}
+		return null;
+	}
+	public List getContactsByIDSpecific(String contactid) 
+	{
+		try 
+		{
+			return getContactsDAO().getContactsOnIDSpecific(contactid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Specific contact on id", e);
 		}
 		return null;
 	}

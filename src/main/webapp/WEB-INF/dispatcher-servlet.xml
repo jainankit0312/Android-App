@@ -19,6 +19,7 @@
 	<bean name="androidController"
 		class="com.intalio.cloud.smartphone.android.AndroidController">
 		<property name="accountBO" ref="accountBO" />
+		<property name="genericBO" ref="genericBO" />
 		<property name="contactsBO" ref="contactBO" />
 		<property name="contractsBO" ref="contractBO" />
 		<property name="opportunitiesBO" ref="opportunityBO" />
@@ -29,15 +30,18 @@
 		<property name="pricelistsBO" ref="pricelistsBO" />
 		<property name="quotesBO" ref="quotesBO" />
 		<property name="businessprocessBO" ref="businessprocessBO" />
+		<property name="assetsBO" ref="assetsBO"/>
+		<property name="casesBO" ref="casesBO"/>
+		<property name="solutionsBO" ref="solutionsBO"/>
 	</bean>
 
 
 	<bean id="intalioDS" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver"></property>
-		<property name="url" value="jdbc:postgresql://192.168.2.103/intalio"></property>
-		<property name="username" value="intalio"></property>
-		<property name="password" value="intalio"></property>
+		<property name="url" value="jdbc:postgresql://platinum.cloud.intalio.com/intalio"></property>
+		<property name="username" value="veresh"></property>
+		<property name="password" value="veresh"></property>
 	</bean>
 
 	<bean id="AndroidMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
@@ -49,7 +53,10 @@
 		<property name="dataSource" ref="intalioDS" />
 		<property name="sqlMapClient" ref="AndroidMapClient" />
 	</bean>
-
+	<bean id="genericDAO" class="com.intalio.android.DAO.GenericDAO">
+		<property name="dataSource" ref="intalioDS" />
+		<property name="sqlMapClient" ref="AndroidMapClient" />
+	</bean>
 	<bean id="contactsDAO" class="com.intalio.android.DAO.ContactsDAO">
 		<property name="dataSource" ref="intalioDS" />
 		<property name="sqlMapClient" ref="AndroidMapClient" />
@@ -99,11 +106,24 @@
 		<property name="dataSource" ref="intalioDS" />
 		<property name="sqlMapClient" ref="AndroidMapClient" />
 	</bean>
-	
+	<bean id="assetsDAO" class="com.intalio.android.DAO.AssetsDAO">
+		<property name="dataSource" ref="intalioDS" />
+		<property name="sqlMapClient" ref="AndroidMapClient" />
+	</bean>
+	<bean id="casesDAO" class="com.intalio.android.DAO.CasesDAO">
+		<property name="dataSource" ref="intalioDS" />
+		<property name="sqlMapClient" ref="AndroidMapClient" />
+	</bean>
+	<bean id="solutionsDAO" class="com.intalio.android.DAO.SolutionsDAO">
+		<property name="dataSource" ref="intalioDS" />
+		<property name="sqlMapClient" ref="AndroidMapClient" />
+	</bean>
 	<bean id="accountBO" class="com.intalio.android.controller.AccountsBO">
 		<property name="accountDAO" ref="accountDAO" />
 	</bean>
-
+	<bean id="genericBO" class="com.intalio.android.controller.GenericBO">
+		<property name="genericDAO" ref="genericDAO" />
+	</bean>
 	<bean id="contactBO" class="com.intalio.android.controller.ContactsBO">
 		<property name="contactsDAO" ref="contactsDAO" />
 	</bean>
@@ -136,9 +156,18 @@
 	</bean>
 	<bean id="quotesBO" class="com.intalio.android.controller.QuotesBO">
 		<property name="quotesDAO" ref="quotesDAO" />
-	</bean>
+	</bean> 
 	<bean id="businessprocessBO" class="com.intalio.android.controller.BusinessProcessesBO">
 		<property name="businessprocessDAO" ref="businessprocessDAO" />
+	</bean>
+	<bean id="assetsBO" class="com.intalio.android.controller.AssetsBO">
+		<property name="assetsDAO" ref="assetsDAO" />
+	</bean>
+	<bean id="casesBO" class="com.intalio.android.controller.CasesBO">
+		<property name="casesDAO" ref="casesDAO" />
+	</bean>
+	<bean id="solutionsBO" class="com.intalio.android.controller.SolutionsBO">
+		<property name="solutionsDAO" ref="solutionsDAO" />
 	</bean>
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation">

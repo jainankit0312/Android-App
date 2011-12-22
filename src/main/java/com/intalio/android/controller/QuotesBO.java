@@ -43,15 +43,39 @@ public class QuotesBO
 	/**
 	 * Returns quotes Details on its id
 	*/
-	public List getQuotesByID(long quoteid) 
+	public List getQuotesByIDMain(String quoteid) 
 	{
 		try 
 		{
-			return getQuotesDAO().getQuotesOnID(quoteid);
+			return getQuotesDAO().getQuotesOnIDMain(quoteid);
 		} 
 		catch (Exception e) 
 		{
 			logger.error("Error while getting quotes on id", e);
+		}
+		return null;
+	}
+	public List getQuotesByIDStandard(String quoteid) 
+	{
+		try 
+		{
+			return getQuotesDAO().getQuotesOnIDStandard(quoteid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting  Standard quotes on id", e);
+		}
+		return null;
+	}
+	public List getQuotesByIDSpecific(String quoteid) 
+	{
+		try 
+		{
+			return getQuotesDAO().getQuotesOnIDSpecific(quoteid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Specific quotes on id", e);
 		}
 		return null;
 	}

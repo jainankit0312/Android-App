@@ -47,15 +47,39 @@ public class ContractsBO
 	/**
 	 * Returns Contract Details on its id
 	*/
-	public List getContractsByID(long contractid) 
+	public List getContractsByIDMain(String contractid) 
 	{
 		try 
 		{
-			return getContractsDAO().getContractsOnID(contractid);
+			return getContractsDAO().getContractsOnIDMain(contractid);
 		} 
 		catch (Exception e) 
 		{
-			logger.error("Error while getting contract info on id", e);
+			logger.error("Error while getting Main contract info on id", e);
+		}
+		return null;
+	}
+	public List getContractsByIDStandard(String contractid) 
+	{
+		try 
+		{
+			return getContractsDAO().getContractsOnIDStandard(contractid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Standard contract info on id", e);
+		}
+		return null;
+	}
+	public List getContractsByIDSpecific(String contractid) 
+	{
+		try 
+		{
+			return getContractsDAO().getContractsOnIDSpecific(contractid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Specific contract info on id", e);
 		}
 		return null;
 	}

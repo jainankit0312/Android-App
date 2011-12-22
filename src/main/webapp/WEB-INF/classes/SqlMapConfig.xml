@@ -15,4 +15,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
 	<sqlMap resource="pricelists.xml" />
 	<sqlMap resource="quotes.xml" />
 	<sqlMap resource="businessprocess.xml" />
+	<sqlMap resource="generic.xml" />
+	<sqlMap resource="assets.xml" />
+	<sqlMap resource="cases.xml" />
+	<sqlMap resource="solutions.xml" />
 </sqlMapConfig>

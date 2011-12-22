@@ -6,45 +6,42 @@ import java.util.Map;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 /**
- * DAO class for Quotes.
+ * DAO class for Solutions.
  * 
  * @author ankit
  */
 
-public class QuotesDAO extends SqlMapClientDaoSupport {
-	public List getQuotes(int offset, int limit) {
-		System.out.println("Fourth");
+public class SolutionsDAO extends SqlMapClientDaoSupport {
+	public List getSolutions(int offset, int limit) {
 		int rowsfrom = offset - 1;
 		int rowsto = limit - rowsfrom;
 		Map QueryData = new HashMap();
 		QueryData.put("startFrom", rowsfrom);
 		QueryData.put("upto", rowsto);
-		System.out.println(super.getSqlMapClientTemplate().queryForList(
-				"getQuotes", QueryData));
-		return super.getSqlMapClientTemplate().queryForList("getQuotes",
+		return super.getSqlMapClientTemplate().queryForList("getSolutions",
 				QueryData);
 	}
 
-	public List getQuotesOnIDMain(String id) {
+	public List getSolutionsOnIDMain(String id) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", id);
-		return super.getSqlMapClientTemplate().queryForList("getQuotesByIDMain",
+		return super.getSqlMapClientTemplate().queryForList("getSolutionsOnIDMain",
 				QueryData);
 	}
-	public List getQuotesOnIDStandard(String id) {
+	public List getSolutionsOnIDStandard(String id) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", id);
-		return super.getSqlMapClientTemplate().queryForList("getQuotesByIDStandard",
+		return super.getSqlMapClientTemplate().queryForList("getSolutionsOnIDStandard",
 				QueryData);
 	}
-	public List getQuotesOnIDSpecific(String id) {
+	public List getSolutionsOnIDSpecific(String id) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", id);
-		return super.getSqlMapClientTemplate().queryForList("getQuotesByIDSpecific",
+		return super.getSqlMapClientTemplate().queryForList("getSolutionsOnIDSpecific",
 				QueryData);
 	}
 
-	public List getQuotesOnAccountID(long xid, int offset, int limit) {
+	public List getSolutionsOnAccountID(long xid, int offset, int limit) {
 		int rowsfrom = offset - 1;
 		int rowsto = limit - rowsfrom;
 		Map QueryData = new HashMap();
@@ -52,7 +49,6 @@ public class QuotesDAO extends SqlMapClientDaoSupport {
 		QueryData.put("upto", rowsto);
 		QueryData.put("id", xid);
 		return super.getSqlMapClientTemplate().queryForList(
-				"getQuotesByAccountID", QueryData);
+				"getSolutionsOnAccountID", QueryData);
 	}
-
 }

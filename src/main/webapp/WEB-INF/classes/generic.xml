@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="QueryMap">
+
+	<select id="getObjectCount" resultClass="java.util.LinkedHashMap" parameterClass="java.util.Map">
+		
+		SELECT 
+		    (SELECT COUNT(*) FROM   io_lead) AS "leads",
+    		(SELECT COUNT(*) FROM   io_opportunity) AS "opportunities",
+       		(SELECT COUNT(*) FROM   io_account) AS "accounts",
+		    (SELECT COUNT(*) FROM   io_contact) AS "contacts",
+		    (SELECT COUNT(*) FROM   io_product) AS "products",
+		    (SELECT COUNT(*) FROM   io_quote) AS "quotes" ,
+            (SELECT COUNT(*) FROM   io_contract) AS "contracts",
+		    (SELECT COUNT(*) FROM   io_invoice) AS "invoices"
+		 
+	</select>
+
+</sqlMap>
+
+<!--   <isEqual property="objname" compareValue="count"> -->

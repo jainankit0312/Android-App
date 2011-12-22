@@ -8,35 +8,105 @@
 	<select id="getInvoices" resultClass="java.util.LinkedHashMap"
 		parameterClass="java.util.Map">
 		select
-				xid , name
+				CAST(io_uuid AS varchar(100)) as xid , io_name as name
 		from
-				xrm_invoice
+				io_invoice
 		order by
-				duedate
+				io_collection_date
 		OFFSET
 				#startFrom#
 		LIMIT
 				#upto#
 	</select>
-	<select id="getInvoicesOnID" resultClass="java.util.LinkedHashMap"
+	<select id="getInvoicesOnIDMain" resultClass="java.util.LinkedHashMap"
 		parameterClass="java.util.Map">
 		select
-				inv.xid as "XID", inv.name "Name", inv.shipto_name as "Ship to Name",
-				inv.invoicenumber as "Invoice Number",
-				to_char(to_timestamp(inv.duedate, 'YYYY MM DD'), 'DD MON YYYY') as "Due Date",
-				inv.billto_city as "Bill to City" , inv.billto_state as "Bill to State",
-				acct.name as "Account",quote.name as "Quote Name",
-				curr.currencyname as "Currency Name", inv.grand_total as "Amount"
+				inv.io_name as "Name",
+				usr.io_full_name as "Owner",
+				inv.io_release_status[1] as "Release Status",
+				inv.io_updated_on as "Updated On"
+				
 		from
-				xrm_invoice as inv
-					LEFT OUTER JOIN xrm_currency as curr
-						ON (curr.xid = inv.currency)
-					LEFT OUTER JOIN xrm_quote as quote
-						ON (quote.xid= inv.quoteid)
-					LEFT OUTER JOIN xrm_account as acct
-						ON (acct.xid = inv.customerid)
+				
+				io_invoice as inv
+					LEFT OUTER JOIN io_user as usr
+						ON (usr.io_uuid = inv.io_owner)
+				
 		where
-				inv.xid = #id#
+				inv.io_uuid = #id#::uuid 	
+	</select>
+	<select id="getInvoicesOnIDStandard" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		select
+				CAST(inv.io_uuid AS varchar(100)) as "ID",
+				inv.io_path as "Path",
+				folder.io_name as "Folder",
+				app.io_name as "Application",
+				pack.io_name as "Package",
+				rel.io_name as "Release",
+				inv.io_tags as "Tags",
+				inv.io_description as "Description",
+				inv.io_documentation as "Documentation",
+				inv.io_notes as "Notes",
+				usr.io_full_name as "Created By",
+				usr1.io_full_name as "Updated By",
+				inv.io_created_on as"Created On",
+				acct.io_name as "Custodian"
+		from
+				io_invoice as inv
+					LEFT OUTER JOIN io_user as usr
+						ON (usr.io_uuid = inv.io_created_by)
+					LEFT OUTER JOIN io_user as usr1
+						ON (usr1.io_uuid = inv.io_updated_by)
+					LEFT OUTER JOIN io_folder as folder
+						ON (folder.io_uuid = inv.io_folder)
+					LEFT OUTER JOIN io_application as app
+						ON (app.io_uuid = inv.io_application)
+					LEFT OUTER JOIN io_package as pack
+						ON (pack.io_uuid = inv.io_package)
+					LEFT OUTER JOIN io_release as rel
+						ON (rel.io_uuid = inv.io_release)
+					LEFT OUTER JOIN io_account as acct
+						ON (acct.io_uuid = inv.io_custodian)
+		where
+				inv.io_uuid = #id#::uuid 
+					
+	</select>
+	<select id="getInvoicesOnIDSpecific" resultClass="java.util.LinkedHashMap"
+		parameterClass="java.util.Map">
+		
+		select
+				inv.io_collection_date as "Collection Date",
+				inv.io_reference_code as "Reference Code",
+				quot.io_name as "Quote",
+				cont.io_name as "Contract",
+				acct.io_name as "Account",
+				contact.io_name as "Primary Contact",
+				inv.io_due_date as "Due Date",
+				tax.io_name as "Tax Rate",
+				inv.io_taxes[1] as "Taxes",
+				inv.io_shipping_and_handling[1] as "Shipping and Handling",
+				inv.io_grand_total[1] as "Grand Total",
+				inv.io_amount_received[1] as "Amount Received",
+				inv.io_billing_to_name as "Billing to Name",
+				inv.io_ship_to_name as "Ship to Name",
+				inv.io_billing_street[1] as "Billing Street",
+				inv.io_shipping_street[1] as "Shipping Street"
+		From
+				io_invoice as inv 
+					LEFT OUTER JOIN io_account as acct
+					ON (acct.io_uuid = inv.io_account)
+					LEFT OUTER JOIN io_quote as quot
+					ON(quot.io_uuid = inv.io_quote)
+					LEFT OUTER JOIN io_contract as cont
+					ON(cont.io_uuid = inv.io_contract)
+					LEFT OUTER JOIN io_contact as contact
+					ON(contact.io_uuid = inv.io_primary_contact)
+					LEFT OUTER JOIN io_tax_rate as tax
+					ON(tax.io_uuid = inv.io_tax_rate)
+		where
+				inv.io_uuid = #id#::uuid 
+		 	
 	</select>
 	<select id="getInvoicesOnAccountID" resultClass="java.util.LinkedHashMap"
 		parameterClass="java.util.Map">

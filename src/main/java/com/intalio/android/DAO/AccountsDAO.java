@@ -12,7 +12,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  */
 
 public class AccountsDAO extends SqlMapClientDaoSupport {
-	public List getAccounts(int offset, int limit) {
+	public List getAccounts(int offset, int limit) { 
 		int rowsfrom = offset - 1;
 		int rowsto = limit - rowsfrom;
 		Map QueryData = new LinkedHashMap();
@@ -22,10 +22,25 @@ public class AccountsDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getAccountsByID(long accountid) {
+	public List getAccountsByIDMain(String accountid) 
+	{ 
 		Map QueryData = new LinkedHashMap();
-		QueryData.put("id", accountid);
-		return super.getSqlMapClientTemplate().queryForList("getAccountByID",
+		QueryData.put("id",accountid);
+		return super.getSqlMapClientTemplate().queryForList("getAccountByIDMain",
+				QueryData);
+	}
+	public List getAccountsByIDStandard(String accountid) 
+	{ 
+		Map QueryData = new LinkedHashMap();
+		QueryData.put("id",accountid);
+		return super.getSqlMapClientTemplate().queryForList("getAccountByIDStandard",
+				QueryData);
+	}
+	public List getAccountsByIDSpecific(String accountid) 
+	{ 
+		Map QueryData = new LinkedHashMap();
+		QueryData.put("id",accountid);
+		return super.getSqlMapClientTemplate().queryForList("getAccountByIDSpecific",
 				QueryData);
 	}
 }

@@ -22,13 +22,24 @@ public class OpportunitiesDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getOpportunitiesByID(long accountid) {
+	public List getOpportunitiesByIDMain(String accountid) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", accountid);
 		return super.getSqlMapClientTemplate().queryForList(
-				"getOpportunityByID", QueryData);
+				"getOpportunityByIDMain", QueryData);
 	}
-
+	public List getOpportunitiesByIDStandard(String accountid) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", accountid);
+		return super.getSqlMapClientTemplate().queryForList(
+				"getOpportunityByIDStandard", QueryData);
+	}
+	public List getOpportunitiesByIDSpecific(String accountid) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", accountid);
+		return super.getSqlMapClientTemplate().queryForList(
+				"getOpportunityByIDSpecific", QueryData);
+	}
 	public List getOpportunitiesByAccountID(long accountid, int offset,
 			int limit) {
 		int rowsfrom = offset - 1;

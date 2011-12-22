@@ -21,7 +21,7 @@ public class PriceListsDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getPriceListsByID(long pricelistID) {
+	public List getPriceListsByID(String pricelistID) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", pricelistID);
 		return super.getSqlMapClientTemplate().queryForList(

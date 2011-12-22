@@ -46,15 +46,39 @@ public class LeadsBO
 	/**
 	 * Returns detail of lead on id
 	*/
-	public List getLeadsByID(long leadsID) 
+	public List getLeadsByIDMain(String leadsID) 
 	{
 		try 
 		{
-			return getLeadsDAO().getLeadsByID(leadsID);
+			return getLeadsDAO().getLeadsByIDMain(leadsID);
 		} 
 		catch (Exception e) 
 		{
-			logger.error("Error while getting leads by id", e);
+			logger.error("Error while getting Main-leads by id", e);
+		}
+		return null;
+	}
+	public List getLeadsByIDStandard(String leadsID) 
+	{
+		try 
+		{
+			return getLeadsDAO().getLeadsByIDStandard(leadsID);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Standard leads by id", e);
+		}
+		return null;
+	}
+	public List getLeadsByIDSpecific(String leadsID) 
+	{
+		try 
+		{
+			return getLeadsDAO().getLeadsByIDSpecific(leadsID);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Specific leads by id", e);
 		}
 		return null;
 	}

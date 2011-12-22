@@ -1,9 +1,6 @@
 package com.intalio.android.Constants;
 
-import javax.servlet.http.HttpServletRequest;
-
-public class AndroidControllerConstants 
-{
+public class AndroidControllerConstants {
 	// Action Items
 	public static final String actionAccounts = "accounts";
 	public static final String actionContacts = "contacts";
@@ -16,16 +13,28 @@ public class AndroidControllerConstants
 	public static final String actionPriceList = "pricelists";
 	public static final String actionQuotes = "quotes";
 	public static final String actionBusinessProcess = "businessprocess";
-	//Sub Action Items
+	public static final String actionCount = "count";
+	public static final String actionAssets = "assets";
+	public static final String actionCases = "cases";
+	public static final String actionSolutions = "solutions";
+	// Sub Action Items
 	public static final String subActionRows = "getrows";
 	public static final String subActionInfo = "getinfo";
-	public static final String subActionByAccount = "getbyaccounts";
-	public static final String subActionByPriceList = "getbyproducts";
-	//Variables 
+	public static final String subActionCount = "getcount";
+	// Variables
 	public static final String varFrom = "startfrom";
 	public static final String varUpto = "upto";
 	public static final String varId = "id";
 	
+	// Enteries to validate URL
+	public static final String checkAction[] = {"accounts","contacts","contracts",
+												 "opportunities","invoices","leads",
+												 "products","competitors","pricelists",
+												 "quotes","businessprocess","count",
+												 "assets","cases","solutions"};
+	
+	public static final String checkSubAction[] = {"getrows","getinfo","getbyaccounts",
+													"getbyproducts","getcount"};
 	
 }
 	

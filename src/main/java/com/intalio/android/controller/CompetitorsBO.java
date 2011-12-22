@@ -48,7 +48,7 @@ public class CompetitorsBO
 	/**
 	 * Returns detail of competitors on id
 	*/
-	public List getCompetitorsByID(long competitorsid) 
+	public List getCompetitorsByID(String competitorsid) 
 	{
 		try 
 		{

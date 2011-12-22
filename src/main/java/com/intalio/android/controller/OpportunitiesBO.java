@@ -46,11 +46,35 @@ public class OpportunitiesBO
 	/**
 	 * Returns details of opportunity on id
 	*/
-	public List getOpportunitiesByID(long oppID) 
+	public List getOpportunitiesByIDMain(String oppID) 
 	{
 		try 
 		{
-			return getOpportunitiesDAO().getOpportunitiesByID(oppID);
+			return getOpportunitiesDAO().getOpportunitiesByIDMain(oppID);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting opportunities on id", e);
+		}
+		return null;
+	}
+	public List getOpportunitiesByIDStandard(String oppID) 
+	{
+		try 
+		{
+			return getOpportunitiesDAO().getOpportunitiesByIDStandard(oppID);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting opportunities on id", e);
+		}
+		return null;
+	}
+	public List getOpportunitiesByIDSpecific(String oppID) 
+	{
+		try 
+		{
+			return getOpportunitiesDAO().getOpportunitiesByIDSpecific(oppID);
 		} 
 		catch (Exception e) 
 		{

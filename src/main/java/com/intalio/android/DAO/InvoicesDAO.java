@@ -22,10 +22,22 @@ public class InvoicesDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getInvoicesOnID(long id) {
+	public List getInvoicesOnIDMain(String id) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", id);
-		return super.getSqlMapClientTemplate().queryForList("getInvoicesOnID",
+		return super.getSqlMapClientTemplate().queryForList("getInvoicesOnIDMain",
+				QueryData);
+	}
+	public List getInvoicesOnIDStandard(String id) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", id);
+		return super.getSqlMapClientTemplate().queryForList("getInvoicesOnIDStandard",
+				QueryData);
+	}
+	public List getInvoicesOnIDSpecific(String id) {
+		Map QueryData = new HashMap();
+		QueryData.put("id", id);
+		return super.getSqlMapClientTemplate().queryForList("getInvoicesOnIDSpecific",
 				QueryData);
 	}
 

@@ -23,7 +23,7 @@ public class CompetitorsDAO extends SqlMapClientDaoSupport {
 				QueryData);
 	}
 
-	public List getCompetitorsByID(long productID) {
+	public List getCompetitorsByID(String productID) {
 		Map QueryData = new HashMap();
 		QueryData.put("id", productID);
 		return super.getSqlMapClientTemplate().queryForList(

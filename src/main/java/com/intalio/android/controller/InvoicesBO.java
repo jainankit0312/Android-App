@@ -46,15 +46,39 @@ public class InvoicesBO
 	/**
 	 * Returns invoice Details on its id
 	*/
-	public List getInvoicesByID(long invoiceid) 
+	public List getInvoicesByIDMain(String invoiceid) 
 	{
 		try 
 		{
-			return getInvoicesDAO().getInvoicesOnID(invoiceid);
+			return getInvoicesDAO().getInvoicesOnIDMain(invoiceid);
 		} 
 		catch (Exception e) 
 		{
-			logger.error("Error while getting invoice by id", e);
+			logger.error("Error while getting Main invoice by id", e);
+		}
+		return null;
+	}
+	public List getInvoicesByIDStandard(String invoiceid) 
+	{
+		try 
+		{
+			return getInvoicesDAO().getInvoicesOnIDStandard(invoiceid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Standard invoice by id", e);
+		}
+		return null;
+	}
+	public List getInvoicesByIDSpecific(String invoiceid) 
+	{
+		try 
+		{
+			return getInvoicesDAO().getInvoicesOnIDSpecific(invoiceid);
+		} 
+		catch (Exception e) 
+		{
+			logger.error("Error while getting Specific invoice by id", e);
 		}
 		return null;
 	}
